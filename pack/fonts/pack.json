@@ -1,0 +1,4 @@
+{
+	filterMin: MipMapLinearNearest,
+	filterMag: Linear
+}
