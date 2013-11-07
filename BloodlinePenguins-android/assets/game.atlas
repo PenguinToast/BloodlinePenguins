@@ -3,23 +3,18 @@ game.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-arial32
-  rotate: false
-  xy: 2, 2
-  size: 256, 256
-  orig: 256, 256
-  offset: 0, 0
-  index: -1
-
-game2.png
-format: RGBA8888
-filter: Nearest,Nearest
-repeat: none
-menu/btn
+menuBtn
   rotate: false
   xy: 2, 2
   size: 8, 8
   split: 2, 2, 2, 2
   orig: 8, 8
+  offset: 0, 0
+  index: -1
+menuFont
+  rotate: false
+  xy: 2, 12
+  size: 128, 128
+  orig: 128, 128
   offset: 0, 0
   index: -1

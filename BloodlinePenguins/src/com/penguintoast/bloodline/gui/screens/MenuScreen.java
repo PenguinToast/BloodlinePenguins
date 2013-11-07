@@ -26,10 +26,12 @@ public class MenuScreen implements Screen {
 		table.setFillParent(true);
 		stage.addActor(table);
 		table.setBackground("background");
-		
-		TextButton btn = new TextButton("HELLO WORLD", Global.skin);
-		table.add(btn);
-		btn.pad(10f);
+
+		TextButton btn = new TextButton("Start Game", Global.skin);
+		TextButton btn2 = new TextButton("Options", Global.skin);
+		table.add(btn.pad(-3, 3, 0, 3)).space(4);
+		table.row();
+		table.add(btn2.pad(-3, 3, 0, 3));
 	}
 
 	@Override
@@ -51,6 +53,8 @@ public class MenuScreen implements Screen {
 		int viewportHeight = (int) size.y;
 		Gdx.gl.glViewport(viewportX, viewportY, viewportWidth, viewportHeight);
 		stage.setViewport(Global.WIDTH, Global.HEIGHT, true, viewportX, viewportY, viewportWidth, viewportHeight);
+		
+		System.out.println(viewportWidth);
 	}
 
 	@Override

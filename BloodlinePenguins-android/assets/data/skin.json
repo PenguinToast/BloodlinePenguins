@@ -7,12 +7,12 @@
 		lightGray: { r: 0.75, g: 0.75, b: 0.75, a: 1 },
 	},
 	com.badlogic.gdx.graphics.g2d.BitmapFont: {
-		default: { file: fonts/arial32.fnt },
+		default: { file: fonts/menuFont.fnt },
 	},
 	com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
-		btnUp: { name: menu/btn, color: lightGray },
-		btnDown: { name: menu/btn, color: darkGray },
-		btnOver: { name: menu/btn, color: gray },
+		btnUp: { name: menuBtn, color: lightGray },
+		btnDown: { name: menuBtn, color: darkGray },
+		btnOver: { name: menuBtn, color: gray },
 	},
 	com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 		default: {
