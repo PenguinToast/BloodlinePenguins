@@ -1,13 +1,13 @@
 
 game.png
 format: RGBA8888
-filter: MipMapLinearNearest,Linear
+filter: Nearest,Nearest
 repeat: none
-fonts/arial
+arial32
   rotate: false
   xy: 2, 2
-  size: 512, 256
-  orig: 512, 256
+  size: 256, 256
+  orig: 256, 256
   offset: 0, 0
   index: -1
 

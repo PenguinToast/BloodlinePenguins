@@ -1,0 +1,23 @@
+{
+	com.badlogic.gdx.graphics.Color: {
+		white: { r: 1, g: 1, b: 1, a: 1 },
+		black: { r: 0, g: 0, b: 0, a: 1 },
+		gray: { r: 0.5, g: 0.5, b: 0.5, a: 1 },
+		darkGray: { r: 0.25, g: 0.25, b: 0.25, a: 1 },
+		lightGray: { r: 0.75, g: 0.75, b: 0.75, a: 1 },
+	},
+	com.badlogic.gdx.graphics.g2d.BitmapFont: {
+		default: { file: fonts/arial32.fnt },
+	},
+	com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
+		btnUp: { name: menu/btn, color: lightGray },
+		btnDown: { name: menu/btn, color: darkGray },
+		btnOver: { name: menu/btn, color: gray },
+	},
+	com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
+		default: {
+			down: btnDown, up: btnUp, over: btnOver, 
+			font: default, fontColor: black
+		},
+	},
+}
