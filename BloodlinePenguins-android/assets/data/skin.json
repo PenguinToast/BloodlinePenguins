@@ -20,4 +20,22 @@
 			font: default, fontColor: black
 		},
 	},
+	com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle: {
+		default: {
+			font: default,
+			fontColorSelected: black, fontColorUnselected: black,
+			selection: btnOver
+		},
+	},
+	com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle: {
+		default: {
+			background: btnUp,
+			vScrollKnob: btnUp,
+		},
+	},
+	com.penguintoast.bloodline.gui.skin.ButtonPadding: {
+		default: {
+			top: -2, left: 4, bottom: 1, right: 4, space: 8
+		},
+	},
 }

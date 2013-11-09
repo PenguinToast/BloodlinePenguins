@@ -40,7 +40,7 @@ public class LoadingScreen implements Screen {
 		if(assets.update()) {
 			Global.skin = new Skin(Gdx.files.internal("data/skin.json"), assets.get("game.atlas", TextureAtlas.class));
 			Global.skin.addRegions(assets.get("preload.atlas", TextureAtlas.class));
-			Global.game.setScreen(new MenuScreen());
+			Global.game.transition(new MenuScreen());
 			dispose();
 		}
 		

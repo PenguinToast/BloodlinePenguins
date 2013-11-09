@@ -9,5 +9,7 @@
 	<classpathentry exported="true" kind="lib" path="libs/gdx-backend-android.jar" sourcepath="libs/gdx-backend-android-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="/BloodlinePenguins/libs/bodyeditor-loader.jar" sourcepath="/BloodlinePenguins/libs/bodyeditor-loader-sources.jar"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/kryonet"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/kryo2"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
