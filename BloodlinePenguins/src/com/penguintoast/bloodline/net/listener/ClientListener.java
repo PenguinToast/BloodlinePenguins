@@ -14,7 +14,6 @@ public class ClientListener extends Listener {
 
 	@Override
 	public void received(Connection connection, Object object) {
-		System.out.println("Client: object recieved: " + object.getClass().getName());
 		if(object instanceof InfoResponse) {
 			client.received(object);
 		}

@@ -2,6 +2,7 @@ package com.penguintoast.bloodline.net;
 
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.EndPoint;
+import com.penguintoast.bloodline.data.PlayerData;
 import com.penguintoast.bloodline.net.objects.InfoRequest;
 import com.penguintoast.bloodline.net.objects.InfoResponse;
 
@@ -16,6 +17,8 @@ public class Network {
 		
 		k.register(InfoRequest.class);
 		k.register(InfoResponse.class);
+		
+		k.register(PlayerData.class);
 	}
 
 }

@@ -4,6 +4,8 @@ import java.net.InetAddress;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -30,7 +32,7 @@ public class JoinScreen extends BaseScreen {
 		stage.addActor(table);
 		table.setBackground("background");
 
-		servers = new Array<InfoResponse>(false, 1, InfoResponse.class);
+		servers = new Array<InfoResponse>(true, 1, InfoResponse.class);
 		list = new List(servers.toArray(), Global.skin);
 		ScrollPane pane = new ScrollPane(list, Global.skin);
 		pane.setFlickScroll(false);
@@ -41,7 +43,7 @@ public class JoinScreen extends BaseScreen {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 				if (getTapCount() >= 2) {
-					System.out.println(list.getSelection());
+					join();
 				}
 				return super.touchDown(event, x, y, pointer, button);
 			}
@@ -49,16 +51,16 @@ public class JoinScreen extends BaseScreen {
 		table.row();
 
 		ButtonPadding pad = Global.skin.get(ButtonPadding.class);
-		
+
 		TextButton joinButton = new TextButton("Join", Global.skin);
 		joinButton.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				
+				join();
 			}
 		});
 		table.add(joinButton.pad(pad.top, pad.left, pad.bottom, pad.right)).space(pad.space).uniform().fill();
-		
+
 		TextButton refreshButton = new TextButton("Refresh", Global.skin);
 		refreshButton.addListener(new ChangeListener() {
 			@Override
@@ -67,7 +69,7 @@ public class JoinScreen extends BaseScreen {
 			}
 		});
 		table.add(refreshButton.pad(pad.top, pad.left, pad.bottom, pad.right)).space(pad.space).uniform().fill();
-		
+
 		TextButton cancelButton = new TextButton("Cancel", Global.skin);
 		cancelButton.addListener(new ChangeListener() {
 			@Override
@@ -76,6 +78,33 @@ public class JoinScreen extends BaseScreen {
 			}
 		});
 		table.add(cancelButton.pad(pad.top, pad.left, pad.bottom, pad.right)).space(pad.space).uniform().fill();
+
+	}
+
+	private void join() {
+		int index = list.getSelectedIndex();
+		if (index >= 0) {
+			boolean success = client.joinServer(servers.get(index).address);
+			if (success) {
+				Global.game.transition(new LobbyScreen(client));
+			} else {
+				showErrorDialog();
+			}
+		}
+	}
+
+	private void showErrorDialog() {
+		Dialog errorDialog = new Dialog("", Global.skin);
+		errorDialog.setSkin(Global.skin);
+		errorDialog.getContentTable().add("The server you are trying to join no longer exists.");
+
+		Button but = new TextButton("Ok", Global.skin);
+		but.pad(0, 20, 3, 20);
+		errorDialog.button(but);
+		errorDialog.setMovable(true);
+		errorDialog.pad(10f);
+		errorDialog.show(stage);
+		refreshServers();
 	}
 
 	@Override
@@ -83,10 +112,10 @@ public class JoinScreen extends BaseScreen {
 
 		client = new GameClient();
 		client.start();
-		
+
 		refreshServers();
 	}
-	
+
 	private void refreshServers() {
 		servers.clear();
 		list.setItems(servers.toArray());
@@ -98,6 +127,7 @@ public class JoinScreen extends BaseScreen {
 				}
 				InfoResponse info = client.queryInfo(addr);
 				if (!servers.contains(info, false)) {
+					info.address = addr;
 					servers.add(info);
 					list.setItems(servers.toArray());
 				}
