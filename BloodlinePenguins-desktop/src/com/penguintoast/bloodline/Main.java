@@ -14,6 +14,7 @@ public class Main {
 		cfg.useGL20 = true;
 		cfg.width = (int) Global.WIDTH;
 		cfg.height = (int) Global.HEIGHT;
+		cfg.vSyncEnabled = true;
 		
 		new LwjglApplication(new BloodlinePenguinsMain(), cfg);
 	}

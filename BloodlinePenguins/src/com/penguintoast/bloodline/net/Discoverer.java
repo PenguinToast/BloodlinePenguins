@@ -6,7 +6,6 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketTimeoutException;
-import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 import java.util.Collections;
 
@@ -62,7 +61,7 @@ public class Discoverer {
 			this.listener = listener;
 		}
 		@Override
-		public void run() {
+		public void run() {/*
 			long start = System.currentTimeMillis();
 			while(System.currentTimeMillis() - start < timeoutMillis) {
 				try {
@@ -71,8 +70,8 @@ public class Discoverer {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			}
-			/*DatagramSocket socket = null;
+			}*/
+			DatagramSocket socket = null;
 			try {
 				socket = new DatagramSocket();
 				socket.setBroadcast(true);
@@ -89,7 +88,7 @@ public class Discoverer {
 			} catch (IOException ex) {
 			} finally {
 				if (socket != null) socket.close();
-			}*/
+			}
 		}
 	}
 	

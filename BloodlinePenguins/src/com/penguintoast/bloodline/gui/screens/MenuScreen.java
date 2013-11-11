@@ -45,6 +45,7 @@ public class MenuScreen extends BaseScreen {
 		addWidget(table, createBtn, pad);
 		addWidget(table, joinBtn, pad);
 		addWidget(table, quitBtn, pad);
+		
 	}
 
 	private void addWidget(Table table, Table widget, ButtonPadding pad) {
