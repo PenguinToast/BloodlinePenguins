@@ -42,7 +42,7 @@ public class JoinScreen extends BaseScreen {
 		pane.addListener(new ClickListener() {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-				if (getTapCount() >= 2) {
+				if (getTapCount() >= 1) {
 					join();
 				}
 				return super.touchDown(event, x, y, pointer, button);
@@ -126,7 +126,7 @@ public class JoinScreen extends BaseScreen {
 					return;
 				}
 				InfoResponse info = client.queryInfo(addr);
-				if (!servers.contains(info, false)) {
+				if (info != null && !servers.contains(info, false)) {
 					info.address = addr;
 					servers.add(info);
 					list.setItems(servers.toArray());

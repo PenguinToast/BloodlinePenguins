@@ -6,14 +6,23 @@ import java.util.concurrent.Semaphore;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Listener.ThreadedListener;
 import com.penguintoast.bloodline.data.PlayerData;
+import com.penguintoast.bloodline.gui.screens.LobbyScreen;
 import com.penguintoast.bloodline.net.listener.ClientListener;
 import com.penguintoast.bloodline.net.objects.InfoRequest;
 import com.penguintoast.bloodline.net.objects.InfoResponse;
+import com.penguintoast.bloodline.net.objects.PlayerJoined;
+import com.penguintoast.bloodline.net.objects.PlayerLeft;
 
 public class GameClient {
+	private LobbyScreen lobby;
+	
 	private Client client;
 	private Semaphore lock;
 	private Object received;
+	
+	public void setLobby(LobbyScreen screen) {
+		lobby = screen;
+	}
 	
 	public void start() {
 		try {
@@ -43,11 +52,16 @@ public class GameClient {
 	
 	public InfoResponse queryInfo(InetAddress addr) {
 		try {
+			if(client.isConnected()) {
+				return null;
+			}
 			client.connect(2000, addr, Network.TCP_PORT, Network.UDP_PORT);
 			client.sendTCP(new InfoRequest());
 			lock.acquire();
 			client.close();
-			return (InfoResponse) received;
+			if(received instanceof InfoResponse) {
+				return (InfoResponse) received;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -57,6 +71,19 @@ public class GameClient {
 	public void received(Object o) {
 		received = o;
 		lock.release();
+		if(o instanceof PlayerData) {
+			PlayerData.updateInstance((PlayerData) o);
+		}
+		if(o instanceof PlayerJoined) {
+			PlayerData dat = ((PlayerJoined) o).player;
+			lobby.playerJoined(dat);
+			Network.players.put(dat.id, dat);
+		}
+		if(o instanceof PlayerLeft) {
+			int id = ((PlayerLeft) o).id;
+			lobby.playerLeft(id);
+			Network.players.remove(id);
+		}
 	}
 
 	public Client getClient() {

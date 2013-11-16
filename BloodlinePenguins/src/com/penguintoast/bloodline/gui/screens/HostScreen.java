@@ -5,6 +5,7 @@ import com.penguintoast.bloodline.Global;
 import com.penguintoast.bloodline.data.PlayerData;
 import com.penguintoast.bloodline.gui.widgets.PlayerList;
 import com.penguintoast.bloodline.net.GameServer;
+import com.penguintoast.bloodline.net.Network;
 
 public class HostScreen extends BaseScreen {
 	private GameServer server;
@@ -17,12 +18,13 @@ public class HostScreen extends BaseScreen {
 		table.setBackground("background");
 		table.pad(10);
 		
-		playerList = new PlayerList(true);
+		playerList = new PlayerList();
 		table.add(playerList).size(200, 400).expand().top().left();
 	}
 	
 	@Override
 	public void show() {
+		Network.host = true;
 		server = new GameServer(this);
 		
 		server.start();
