@@ -7,7 +7,7 @@
 	<classpathentry kind="lib" path="libs/gdx-backend-lwjgl.jar" sourcepath="libs/gdx-backend-lwjgl-sources.jar"/>
 	<classpathentry kind="lib" path="libs/gdx-backend-lwjgl-natives.jar"/>
 	<classpathentry kind="lib" path="libs/gdx-natives.jar"/>
-	<classpathentry kind="lib" path="D:/William/libgdx/extensions/gdx-tools/gdx-tools.jar" sourcepath="D:/William/libgdx/extensions/gdx-tools/sources/gdx-tools-sources.jar"/>
+	<classpathentry kind="lib" path="../../../libgdx/extensions/gdx-tools/gdx-tools.jar" sourcepath="../../../libgdx/extensions/gdx-tools/sources/gdx-tools-sources.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/kryonet"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/kryo2"/>
 	<classpathentry kind="output" path="bin"/>
