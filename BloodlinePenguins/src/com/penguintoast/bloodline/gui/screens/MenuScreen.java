@@ -11,11 +11,6 @@ import com.penguintoast.bloodline.gui.skin.ButtonPadding;
 public class MenuScreen extends BaseScreen {
 
 	public MenuScreen() {
-		Table table = new Table(Global.skin);
-		table.setFillParent(true);
-		stage.addActor(table);
-		table.setBackground("background");
-
 		ButtonPadding pad = Global.skin.get(ButtonPadding.class);
 
 		TextButton createBtn = new TextButton("Create Game", Global.skin);

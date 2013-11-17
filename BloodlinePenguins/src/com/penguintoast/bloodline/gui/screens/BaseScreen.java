@@ -6,11 +6,13 @@ import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Scaling;
 import com.penguintoast.bloodline.Global;
 
 public abstract class BaseScreen implements Screen {
 	protected Stage stage;
+	protected Table table;
 
 	public BaseScreen() {
 		OrthographicCamera camera = new OrthographicCamera(Global.WIDTH, Global.HEIGHT);
@@ -19,6 +21,11 @@ public abstract class BaseScreen implements Screen {
 		stage.setCamera(camera);
 		
 		Gdx.input.setInputProcessor(stage);
+		
+		table = new Table(Global.skin);
+		table.setFillParent(true);
+		stage.addActor(table);
+		table.setBackground("background");
 	}
 
 	@Override

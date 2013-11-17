@@ -8,7 +8,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -20,6 +19,7 @@ import com.penguintoast.bloodline.net.Discoverer.DiscoverListener;
 import com.penguintoast.bloodline.net.GameClient;
 import com.penguintoast.bloodline.net.Network;
 import com.penguintoast.bloodline.net.objects.InfoResponse;
+import com.penguintoast.bloodline.net.objects.JoinResponse;
 
 public class JoinScreen extends BaseScreen {
 	private List list;
@@ -27,11 +27,6 @@ public class JoinScreen extends BaseScreen {
 	private GameClient client;
 
 	public JoinScreen() {
-		Table table = new Table(Global.skin);
-		table.setFillParent(true);
-		stage.addActor(table);
-		table.setBackground("background");
-
 		servers = new Array<InfoResponse>(true, 1, InfoResponse.class);
 		list = new List(servers.toArray(), Global.skin);
 		ScrollPane pane = new ScrollPane(list, Global.skin);
@@ -84,9 +79,11 @@ public class JoinScreen extends BaseScreen {
 	private void join() {
 		int index = list.getSelectedIndex();
 		if (index >= 0) {
-			boolean success = client.joinServer(servers.get(index).address);
-			if (success) {
-				Global.game.transition(new LobbyScreen(client));
+			JoinResponse response = client.joinServer(servers.get(index).address);
+			if (response != null) {
+				if (response.response == JoinResponse.ACCEPTED) {
+					Global.game.transition(new LobbyScreen(client));
+				}
 			} else {
 				showErrorDialog();
 			}

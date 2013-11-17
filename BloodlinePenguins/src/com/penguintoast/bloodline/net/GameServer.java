@@ -12,6 +12,7 @@ import com.penguintoast.bloodline.gui.screens.HostScreen;
 import com.penguintoast.bloodline.net.listener.ServerListener;
 import com.penguintoast.bloodline.net.objects.InfoRequest;
 import com.penguintoast.bloodline.net.objects.InfoResponse;
+import com.penguintoast.bloodline.net.objects.JoinResponse;
 import com.penguintoast.bloodline.net.objects.PlayerJoined;
 import com.penguintoast.bloodline.net.objects.PlayerLeft;
 
@@ -59,13 +60,12 @@ public class GameServer {
 			if(unused.size > 0) {
 				dat.id = unused.pop();
 			} else {
-				System.out.println(playerCount);
 				dat.id = playerCount++;
 			}
 			Network.players.put(dat.id, dat);
 			screen.playerJoined(dat);
 			conn.setData(dat);
-			conn.sendTCP(dat);
+			conn.sendTCP(new JoinResponse(Network.players.values().toArray(), dat.id));
 			server.sendToAllExceptTCP(conn.getID(), new PlayerJoined(dat));
 		}
 	}

@@ -1,7 +1,5 @@
 package com.penguintoast.bloodline.gui.screens;
 
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.penguintoast.bloodline.Global;
 import com.penguintoast.bloodline.data.PlayerData;
 import com.penguintoast.bloodline.gui.widgets.PlayerList;
 import com.penguintoast.bloodline.net.GameServer;
@@ -12,10 +10,6 @@ public class HostScreen extends BaseScreen {
 	private PlayerList playerList;
 
 	public HostScreen() {
-		Table table = new Table(Global.skin);
-		table.setFillParent(true);
-		stage.addActor(table);
-		table.setBackground("background");
 		table.pad(10);
 		
 		playerList = new PlayerList();

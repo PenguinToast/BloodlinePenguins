@@ -23,6 +23,7 @@ public class PlayerList extends Table {
 		items.put(data.id, item);
 		buttons.add(item);
 		add(item).expandX().fill().space(2);
+		row();
 	}
 	
 	public void removePlayer(PlayerData data) {
@@ -31,7 +32,10 @@ public class PlayerList extends Table {
 	
 	public void removePlayer(int id) {
 		PlayerListItem item = items.remove(id);
+		
+		getCell(item).ignore();
 		removeActor(item);
+		invalidate();
 		buttons.remove(item);
 	}
 }
