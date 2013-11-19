@@ -15,4 +15,9 @@ public class ClientListener extends Listener {
 	public void received(Connection connection, Object object) {
 		client.received(object);
 	}
+	
+	@Override
+	public void disconnected(Connection connection) {
+		client.disconnected();
+	}
 }

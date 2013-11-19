@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.penguintoast.bloodline.Global;
 import com.penguintoast.bloodline.gui.skin.ButtonPadding;
+import com.penguintoast.bloodline.net.Network;
 
 public class MenuScreen extends BaseScreen {
 
@@ -17,7 +18,8 @@ public class MenuScreen extends BaseScreen {
 		createBtn.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				Global.game.transition(new HostScreen());
+				Network.host = true;
+				Global.game.transition(new LobbyScreen());
 			}
 		});
 

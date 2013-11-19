@@ -26,10 +26,6 @@ public class PlayerList extends Table {
 		row();
 	}
 	
-	public void removePlayer(PlayerData data) {
-		removePlayer(data.id);
-	}
-	
 	public void removePlayer(int id) {
 		PlayerListItem item = items.remove(id);
 		

@@ -82,6 +82,7 @@ public class JoinScreen extends BaseScreen {
 			JoinResponse response = client.joinServer(servers.get(index).address);
 			if (response != null) {
 				if (response.response == JoinResponse.ACCEPTED) {
+					Network.host = false;
 					Global.game.transition(new LobbyScreen(client));
 				}
 			} else {

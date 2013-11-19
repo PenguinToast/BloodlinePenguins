@@ -8,6 +8,7 @@ import com.esotericsoftware.kryonet.Listener.ThreadedListener;
 import com.penguintoast.bloodline.data.PlayerData;
 import com.penguintoast.bloodline.gui.screens.LobbyScreen;
 import com.penguintoast.bloodline.net.listener.ClientListener;
+import com.penguintoast.bloodline.net.objects.ChatMessage;
 import com.penguintoast.bloodline.net.objects.InfoRequest;
 import com.penguintoast.bloodline.net.objects.InfoResponse;
 import com.penguintoast.bloodline.net.objects.JoinResponse;
@@ -93,6 +94,19 @@ public class GameClient {
 					Network.players.put(pl.id, pl);
 				}
 			}
+		}
+		if (o instanceof ChatMessage) {
+			lobby.chat(((ChatMessage) o).message);
+		}
+	}
+	
+	public void chat(String message) {
+		client.sendTCP(new ChatMessage(message));
+	}
+	
+	public void disconnected() {
+		if(lobby != null) {
+			lobby.showErrorDialog();
 		}
 	}
 

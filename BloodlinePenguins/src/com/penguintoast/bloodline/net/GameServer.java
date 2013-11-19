@@ -8,8 +8,9 @@ import com.esotericsoftware.kryonet.Server;
 import com.penguintoast.bloodline.GameUtil;
 import com.penguintoast.bloodline.data.PlayerData;
 import com.penguintoast.bloodline.data.SaveData;
-import com.penguintoast.bloodline.gui.screens.HostScreen;
+import com.penguintoast.bloodline.gui.screens.LobbyScreen;
 import com.penguintoast.bloodline.net.listener.ServerListener;
+import com.penguintoast.bloodline.net.objects.ChatMessage;
 import com.penguintoast.bloodline.net.objects.InfoRequest;
 import com.penguintoast.bloodline.net.objects.InfoResponse;
 import com.penguintoast.bloodline.net.objects.JoinResponse;
@@ -18,11 +19,11 @@ import com.penguintoast.bloodline.net.objects.PlayerLeft;
 
 public class GameServer {
 	private Server server;
-	private HostScreen screen;
+	private LobbyScreen screen;
 	private IntArray unused;
 	private int playerCount;
 
-	public GameServer(HostScreen screen) {
+	public GameServer(LobbyScreen screen) {
 		this.screen = screen;
 		unused = new IntArray();
 	}
@@ -44,6 +45,10 @@ public class GameServer {
 
 			server.bind(Network.TCP_PORT, Network.UDP_PORT);
 			server.start();
+			
+			PlayerData.getInstance().id = 0;
+			Network.players.put(0, PlayerData.getInstance());
+			screen.playerJoined(PlayerData.getInstance());
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
@@ -68,12 +73,21 @@ public class GameServer {
 			conn.sendTCP(new JoinResponse(Network.players.values().toArray(), dat.id));
 			server.sendToAllExceptTCP(conn.getID(), new PlayerJoined(dat));
 		}
+		if (obj instanceof ChatMessage) {
+			screen.chat(((ChatMessage) obj).message);
+			server.sendToAllTCP(obj);
+		}
+	}
+	
+	public void chat(String message) {
+		screen.chat(message);
+		server.sendToAllTCP(new ChatMessage(message));
 	}
 	
 	public void playerLeft(PlayerData data) {
 		unused.add(data.id);
 		Network.players.remove(data.id);
-		screen.playerLeft(data);
+		screen.playerLeft(data.id);
 		server.sendToAllTCP(new PlayerLeft(data.id));
 	}
 	

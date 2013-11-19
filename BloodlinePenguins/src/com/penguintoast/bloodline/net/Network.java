@@ -11,6 +11,7 @@ import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
 import com.esotericsoftware.kryonet.EndPoint;
 import com.penguintoast.bloodline.data.PlayerData;
+import com.penguintoast.bloodline.net.objects.ChatMessage;
 import com.penguintoast.bloodline.net.objects.InfoRequest;
 import com.penguintoast.bloodline.net.objects.InfoResponse;
 import com.penguintoast.bloodline.net.objects.JoinResponse;
@@ -25,10 +26,25 @@ public class Network {
 	
 	public static IntMap<PlayerData> players = new IntMap<PlayerData>();
 
-	@SuppressWarnings({"rawtypes", "unchecked"})
 	public static void register(EndPoint ep) {
 		Kryo k = ep.getKryo();
 		
+		registerLibGDX(k);
+		
+		k.register(byte[].class);
+		
+		k.register(InfoRequest.class);
+		k.register(InfoResponse.class);
+		k.register(PlayerJoined.class);
+		k.register(PlayerLeft.class);
+		k.register(JoinResponse.class);
+		k.register(ChatMessage.class);
+		
+		k.register(PlayerData.class);
+	}
+
+	@SuppressWarnings({"rawtypes", "unchecked"})
+	private static void registerLibGDX(Kryo k) {
 		// Libgdx classes
 		k.register(Array.class, new Serializer<Array>() {
 			{
@@ -134,16 +150,6 @@ public class Network {
 				output.writeInt(Color.rgba8888(color));
 			}
 		});
-		
-		k.register(byte[].class);
-		
-		k.register(InfoRequest.class);
-		k.register(InfoResponse.class);
-		k.register(PlayerJoined.class);
-		k.register(PlayerLeft.class);
-		k.register(JoinResponse.class);
-		
-		k.register(PlayerData.class);
 	}
 
 }

@@ -8,6 +8,7 @@
 	},
 	com.badlogic.gdx.graphics.g2d.BitmapFont: {
 		default: { file: fonts/menuFont.fnt },
+		text: { file: fonts/textFont.fnt },
 	},
 	com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
 		btnUp: { name: menuBtn, color: lightGray },
@@ -25,6 +26,9 @@
 		default: {
 			font: default, fontColor: black,
 		},
+		textArea: {
+			font: text, fontColor: black,
+		},
 	},
 	com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
 		default: {
@@ -41,6 +45,14 @@
 			font: default, fontColor: black
 		},
 	},
+	com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle: {
+		default: {
+			background: btnUp, focusedBackground: btnWhite,
+			font: text, fontColor: black,
+			selection: plainLightGray,
+			cursor: textCursor,
+		},
+	},
 	com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle: {
 		default: {
 			font: default,
@@ -51,6 +63,10 @@
 	com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle: {
 		default: {
 			background: btnUp,
+			vScrollKnob: btnUp,
+		},
+		textArea: {
+			background: plainWhite,
 			vScrollKnob: btnUp,
 		},
 	},
