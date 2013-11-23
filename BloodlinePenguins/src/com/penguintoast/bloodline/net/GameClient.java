@@ -41,6 +41,11 @@ public class GameClient {
 			ex.printStackTrace();
 		}
 	}
+	
+	public void shutdown() {
+		Network.players.clear();
+		client.close();
+	}
 
 	public JoinResponse joinServer(InetAddress addr) {
 		try {

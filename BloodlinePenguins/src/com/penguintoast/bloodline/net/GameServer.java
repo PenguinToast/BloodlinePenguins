@@ -45,7 +45,7 @@ public class GameServer {
 
 			server.bind(Network.TCP_PORT, Network.UDP_PORT);
 			server.start();
-			
+
 			PlayerData.getInstance().id = 0;
 			Network.players.put(0, PlayerData.getInstance());
 			screen.playerJoined(PlayerData.getInstance());
@@ -54,7 +54,12 @@ public class GameServer {
 		}
 
 	}
-	
+
+	public void shutdown() {
+		Network.players.clear();
+		server.close();
+	}
+
 	public void received(GameConnection conn, Object obj) {
 		if (obj instanceof InfoRequest) {
 			InfoResponse response = new InfoResponse(GameUtil.getHWID(), SaveData.getName());
@@ -62,7 +67,7 @@ public class GameServer {
 		}
 		if (obj instanceof PlayerData) {
 			PlayerData dat = (PlayerData) obj;
-			if(unused.size > 0) {
+			if (unused.size > 0) {
 				dat.id = unused.pop();
 			} else {
 				dat.id = playerCount++;
@@ -78,19 +83,19 @@ public class GameServer {
 			server.sendToAllTCP(obj);
 		}
 	}
-	
+
 	public void chat(String message) {
 		screen.chat(message);
 		server.sendToAllTCP(new ChatMessage(message));
 	}
-	
+
 	public void playerLeft(PlayerData data) {
 		unused.add(data.id);
 		Network.players.remove(data.id);
 		screen.playerLeft(data.id);
 		server.sendToAllTCP(new PlayerLeft(data.id));
 	}
-	
+
 	public Server getServer() {
 		return server;
 	}

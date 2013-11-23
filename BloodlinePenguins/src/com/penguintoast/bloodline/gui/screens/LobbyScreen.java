@@ -1,11 +1,16 @@
 package com.penguintoast.bloodline.gui.screens;
 
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.penguintoast.bloodline.Global;
 import com.penguintoast.bloodline.data.PlayerData;
+import com.penguintoast.bloodline.gui.widgets.BloodlineSelector;
 import com.penguintoast.bloodline.gui.widgets.ChatBox;
+import com.penguintoast.bloodline.gui.widgets.MapSelector;
 import com.penguintoast.bloodline.gui.widgets.PlayerList;
 import com.penguintoast.bloodline.net.GameClient;
 import com.penguintoast.bloodline.net.GameServer;
@@ -29,11 +34,43 @@ public class LobbyScreen extends BaseScreen {
 	private void init() {
 		table.pad(10);
 
+		Table leftTable = new Table();
+		table.add(leftTable).expandY().fill().space(10);
 		playerList = new PlayerList();
-		table.add(playerList).size(200, 400).expand().top().left();
+		leftTable.add(playerList).expand().fill().width(250);
+		leftTable.row();
+		leftTable.add(new TextButton("Lock In", Global.skin)).expandX().fill().space(4f);
+		if (Network.host) {
+			leftTable.row();
+			leftTable.add(new TextButton("Start", Global.skin)).expandX().fill().space(4f);
+		}
+		leftTable.row();
+		TextButton backButton = new TextButton("Back", Global.skin);
+		backButton.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				if(Network.host) {
+					server.shutdown();
+					Global.game.transition(new MenuScreen());
+				} else {
+					client.shutdown();
+					Global.game.transition(new JoinScreen());
+				}
+			}
+		});
+		leftTable.add(backButton).expandX().fill().space(4f);
 
+		Table rightTable = new Table();
+		table.add(rightTable).expand().fill().space(10);
+		MapSelector map = new MapSelector();
+		rightTable.add(map).expand().fill();
+		rightTable.row();
+		BloodlineSelector bloodline = new BloodlineSelector();
+		rightTable.add(bloodline).expand().fill();
+
+		table.row();
 		chat = new ChatBox();
-		table.add(chat).size(400, 200);
+		table.add(chat).expandX().fill().colspan(2).height(200).space(10);
 
 		if (Network.host) {
 			server = new GameServer(this);
@@ -84,6 +121,12 @@ public class LobbyScreen extends BaseScreen {
 
 	public void chat(String message) {
 		chat.append(message);
+	}
+
+	@Override
+	public void render(float delta) {
+		super.render(delta);
+		Table.drawDebug(stage);
 	}
 
 }

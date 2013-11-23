@@ -64,7 +64,8 @@ public class ChatBox extends Table {
 	
 	public void append(String text) {
 		textArea.setText(textArea.getText() + text + "\r\n");
-		scroll.setScrollPercentY(100.0f);
+		scroll.setScrollPercentY(1.0f);
+		scroll.updateVisualScroll();
 	}
 
 }
