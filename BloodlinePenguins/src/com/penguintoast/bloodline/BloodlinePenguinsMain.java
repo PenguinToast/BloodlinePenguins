@@ -16,7 +16,7 @@ public class BloodlinePenguinsMain extends Game {
 	}
 	
 	public void transition(Screen target) {
-		setScreen(new TransitionScreen(getScreen(), target));
+		setScreen(new TransitionScreen(getScreen(), target)); 
 	}
 
 	@Override
