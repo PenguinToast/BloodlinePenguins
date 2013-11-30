@@ -24,7 +24,6 @@ import com.penguintoast.bloodline.net.objects.JoinResponse;
 public class JoinScreen extends BaseScreen {
 	private List list;
 	private Array<InfoResponse> servers;
-	private GameClient client;
 
 	public JoinScreen() {
 		servers = new Array<InfoResponse>(true, 1, InfoResponse.class);
@@ -78,12 +77,12 @@ public class JoinScreen extends BaseScreen {
 
 	private void join() {
 		int index = list.getSelectedIndex();
-		if (index >= 0) {
-			JoinResponse response = client.joinServer(servers.get(index).address);
+		if (index >= 0 && servers.size > 0) {
+			JoinResponse response = Network.client.joinServer(servers.get(index).address);
 			if (response != null) {
 				if (response.response == JoinResponse.ACCEPTED) {
 					Network.host = false;
-					Global.game.transition(new LobbyScreen(client));
+					Global.game.transition(new LobbyScreen());
 				}
 			} else {
 				showErrorDialog();
@@ -108,8 +107,8 @@ public class JoinScreen extends BaseScreen {
 	@Override
 	public void show() {
 
-		client = new GameClient();
-		client.start();
+		Network.client = new GameClient();
+		Network.client.start();
 
 		refreshServers();
 	}
@@ -117,13 +116,13 @@ public class JoinScreen extends BaseScreen {
 	private void refreshServers() {
 		servers.clear();
 		list.setItems(servers.toArray());
-		Discoverer.discoverHosts(Network.UDP_PORT, 5000, client.getClient().getSerialization(), new DiscoverListener() {
+		Discoverer.discoverHosts(Network.UDP_PORT, 5000, Network.client.getClient().getSerialization(), new DiscoverListener() {
 			@Override
 			public void hostDiscovered(InetAddress addr) {
 				if (addr == null) {
 					return;
 				}
-				InfoResponse info = client.queryInfo(addr);
+				InfoResponse info = Network.client.queryInfo(addr);
 				if (info != null && !servers.contains(info, false)) {
 					info.address = addr;
 					servers.add(info);

@@ -1,5 +1,7 @@
 package com.penguintoast.bloodline.gui.screens;
 
+import java.util.Iterator;
+
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
@@ -12,20 +14,13 @@ import com.penguintoast.bloodline.gui.widgets.BloodlineSelector;
 import com.penguintoast.bloodline.gui.widgets.ChatBox;
 import com.penguintoast.bloodline.gui.widgets.MapSelector;
 import com.penguintoast.bloodline.gui.widgets.PlayerList;
-import com.penguintoast.bloodline.net.GameClient;
 import com.penguintoast.bloodline.net.GameServer;
 import com.penguintoast.bloodline.net.Network;
 
 public class LobbyScreen extends BaseScreen {
-	private GameClient client;
-	private GameServer server;
 	private PlayerList playerList;
 	private ChatBox chat;
-
-	public LobbyScreen(GameClient client) {
-		this.client = client;
-		init();
-	}
+	private TextButton startButton;
 
 	public LobbyScreen() {
 		init();
@@ -39,21 +34,38 @@ public class LobbyScreen extends BaseScreen {
 		playerList = new PlayerList();
 		leftTable.add(playerList).expand().fill().width(250);
 		leftTable.row();
-		leftTable.add(new TextButton("Lock In", Global.skin)).expandX().fill().space(4f);
+		
+		TextButton lockButton = new TextButton("Lock In", Global.skin);
+		lockButton.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				((TextButton) actor).setDisabled(true);
+				if(Network.host) {
+					Network.server.ready();
+				} else {
+					Network.client.ready();
+				}
+			}
+		});
+		leftTable.add(lockButton).expandX().fill().space(4f);
+		
 		if (Network.host) {
 			leftTable.row();
-			leftTable.add(new TextButton("Start", Global.skin)).expandX().fill().space(4f);
+			startButton = new TextButton("Start", Global.skin);
+			startButton.setDisabled(true);
+			leftTable.add(startButton).expandX().fill().space(4f);
 		}
 		leftTable.row();
+		
 		TextButton backButton = new TextButton("Back", Global.skin);
 		backButton.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
 				if(Network.host) {
-					server.shutdown();
+					Network.server.shutdown();
 					Global.game.transition(new MenuScreen());
 				} else {
-					client.shutdown();
+					Network.client.shutdown();
 					Global.game.transition(new JoinScreen());
 				}
 			}
@@ -73,13 +85,10 @@ public class LobbyScreen extends BaseScreen {
 		table.add(chat).expandX().fill().colspan(2).height(200).space(10);
 
 		if (Network.host) {
-			server = new GameServer(this);
-
-			chat.setServer(server);
-			server.start();
+			Network.server = new GameServer(this);
+			Network.server.start();
 		} else {
-			chat.setClient(client);
-			client.setLobby(this);
+			Network.client.setLobby(this);
 		}
 	}
 
@@ -122,11 +131,29 @@ public class LobbyScreen extends BaseScreen {
 	public void chat(String message) {
 		chat.append(message);
 	}
+	
+	public void playerReady(int id) {
+		playerList.ready(id);
+	}
 
 	@Override
 	public void render(float delta) {
+		if(Network.host) {
+			boolean ready = true;
+			Iterator<PlayerData> it = Network.players.values().iterator();
+			while(it.hasNext()) {
+				if(!it.next().ready) {
+					ready = false;
+				}
+			}
+			if(ready) {
+				startButton.setDisabled(false);
+			} else {
+				startButton.setDisabled(true);
+			}
+		}
+		
 		super.render(delta);
-		Table.drawDebug(stage);
 	}
 
 }

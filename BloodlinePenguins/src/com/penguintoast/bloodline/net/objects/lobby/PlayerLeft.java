@@ -1,4 +1,4 @@
-package com.penguintoast.bloodline.net.objects;
+package com.penguintoast.bloodline.net.objects.lobby;
 
 public class PlayerLeft {
 	public int id;

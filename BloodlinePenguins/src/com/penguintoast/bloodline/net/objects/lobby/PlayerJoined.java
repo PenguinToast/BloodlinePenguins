@@ -1,4 +1,4 @@
-package com.penguintoast.bloodline.net.objects;
+package com.penguintoast.bloodline.net.objects.lobby;
 
 import com.penguintoast.bloodline.data.PlayerData;
 

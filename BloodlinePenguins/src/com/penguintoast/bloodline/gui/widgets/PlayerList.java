@@ -34,4 +34,8 @@ public class PlayerList extends Table {
 		invalidate();
 		buttons.remove(item);
 	}
+	
+	public void ready(int id) {
+		items.get(id).ready();
+	}
 }

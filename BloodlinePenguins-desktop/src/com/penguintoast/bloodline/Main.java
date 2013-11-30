@@ -5,7 +5,7 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.tools.imagepacker.TexturePacker2;
 
 public class Main {
-	private static boolean pack = false;
+	private static boolean pack = true;
 
 	public static void main(String[] args) {
 		if (pack) {

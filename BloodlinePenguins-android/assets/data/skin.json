@@ -42,6 +42,7 @@
 	com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 		default: {
 			down: btnDown, up: btnUp, over: btnOver, 
+			disabled: btnOver, disabledFontColor: darkGray,
 			font: default, fontColor: black
 		},
 	},

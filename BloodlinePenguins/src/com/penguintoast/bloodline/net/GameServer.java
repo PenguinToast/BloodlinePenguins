@@ -14,8 +14,11 @@ import com.penguintoast.bloodline.net.objects.ChatMessage;
 import com.penguintoast.bloodline.net.objects.InfoRequest;
 import com.penguintoast.bloodline.net.objects.InfoResponse;
 import com.penguintoast.bloodline.net.objects.JoinResponse;
-import com.penguintoast.bloodline.net.objects.PlayerJoined;
-import com.penguintoast.bloodline.net.objects.PlayerLeft;
+import com.penguintoast.bloodline.net.objects.game.ProcessTCP;
+import com.penguintoast.bloodline.net.objects.game.ProcessUDP;
+import com.penguintoast.bloodline.net.objects.lobby.PlayerJoined;
+import com.penguintoast.bloodline.net.objects.lobby.PlayerLeft;
+import com.penguintoast.bloodline.net.objects.lobby.PlayerReady;
 
 public class GameServer {
 	private Server server;
@@ -32,6 +35,7 @@ public class GameServer {
 		try {
 			unused.clear();
 			playerCount = 1;
+			Network.actorCount = 0;
 			server = new Server() {
 				@Override
 				protected Connection newConnection() {
@@ -57,6 +61,8 @@ public class GameServer {
 
 	public void shutdown() {
 		Network.players.clear();
+		Network.actors.clear();
+		PlayerData.getInstance().ready = false;
 		server.close();
 	}
 
@@ -82,6 +88,18 @@ public class GameServer {
 			screen.chat(((ChatMessage) obj).message);
 			server.sendToAllTCP(obj);
 		}
+		if (obj instanceof PlayerReady) {
+			int id = conn.getData().id;
+			Network.players.get(id).ready = true;
+			screen.playerReady(id);
+			server.sendToAllTCP(new PlayerReady(id));
+		}
+	}
+	
+	public void ready() {
+		screen.playerReady(0);
+		PlayerData.getInstance().ready = true;
+		server.sendToAllTCP(new PlayerReady(0));
 	}
 
 	public void chat(String message) {
@@ -94,6 +112,11 @@ public class GameServer {
 		Network.players.remove(data.id);
 		screen.playerLeft(data.id);
 		server.sendToAllTCP(new PlayerLeft(data.id));
+	}
+	
+	public void updateData() {
+		server.sendToAllTCP(new ProcessTCP(Network.processTCP));
+		server.sendToAllUDP(new ProcessUDP(Network.processUDP));
 	}
 
 	public Server getServer() {

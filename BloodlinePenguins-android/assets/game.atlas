@@ -5,7 +5,7 @@ filter: Nearest,Nearest
 repeat: none
 empty
   rotate: false
-  xy: 5, 14
+  xy: 20, 24
   size: 4, 4
   split: 0, 0, 0, 0
   orig: 4, 4
@@ -13,7 +13,7 @@ empty
   index: -1
 menuBtn
   rotate: false
-  xy: 132, 140
+  xy: 2, 2
   size: 8, 8
   split: 2, 2, 2, 2
   orig: 8, 8
@@ -21,14 +21,21 @@ menuBtn
   index: -1
 menuFont
   rotate: false
-  xy: 2, 20
+  xy: 2, 30
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
+ready
+  rotate: false
+  xy: 2, 12
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
 textCursor
   rotate: false
-  xy: 2, 2
+  xy: 132, 142
   size: 1, 16
   orig: 1, 16
   offset: 0, 0

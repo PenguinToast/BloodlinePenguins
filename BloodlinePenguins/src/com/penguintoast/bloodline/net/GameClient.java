@@ -1,6 +1,7 @@
 package com.penguintoast.bloodline.net;
 
 import java.net.InetAddress;
+import java.util.LinkedList;
 import java.util.concurrent.Semaphore;
 
 import com.esotericsoftware.kryonet.Client;
@@ -12,8 +13,11 @@ import com.penguintoast.bloodline.net.objects.ChatMessage;
 import com.penguintoast.bloodline.net.objects.InfoRequest;
 import com.penguintoast.bloodline.net.objects.InfoResponse;
 import com.penguintoast.bloodline.net.objects.JoinResponse;
-import com.penguintoast.bloodline.net.objects.PlayerJoined;
-import com.penguintoast.bloodline.net.objects.PlayerLeft;
+import com.penguintoast.bloodline.net.objects.game.ProcessTCP;
+import com.penguintoast.bloodline.net.objects.game.ProcessUDP;
+import com.penguintoast.bloodline.net.objects.lobby.PlayerJoined;
+import com.penguintoast.bloodline.net.objects.lobby.PlayerLeft;
+import com.penguintoast.bloodline.net.objects.lobby.PlayerReady;
 
 public class GameClient {
 	private LobbyScreen lobby;
@@ -28,6 +32,7 @@ public class GameClient {
 
 	public void start() {
 		try {
+			Network.actorCount = 0;
 			lock = new Semaphore(0);
 
 			client = new Client();
@@ -44,6 +49,7 @@ public class GameClient {
 	
 	public void shutdown() {
 		Network.players.clear();
+		Network.actors.clear();
 		client.close();
 	}
 
@@ -78,9 +84,16 @@ public class GameClient {
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
 	public void received(Object o) {
 		received = o;
 		lock.release();
+		if (o instanceof ProcessTCP) {
+			Network.processTCP = (LinkedList<Object>) o;
+		}
+		if (o instanceof ProcessUDP) {
+			Network.processUDP = (LinkedList<Object>) o;
+		}
 		if (o instanceof PlayerJoined) {
 			PlayerData dat = ((PlayerJoined) o).player;
 			lobby.playerJoined(dat);
@@ -103,6 +116,15 @@ public class GameClient {
 		if (o instanceof ChatMessage) {
 			lobby.chat(((ChatMessage) o).message);
 		}
+		if (o instanceof PlayerReady) {
+			int id = ((PlayerReady) o).id;
+			Network.players.get(id).ready = true;
+			lobby.playerReady(id);
+		}
+	}
+	
+	public void ready() {
+		client.sendTCP(new PlayerReady());
 	}
 	
 	public void chat(String message) {
