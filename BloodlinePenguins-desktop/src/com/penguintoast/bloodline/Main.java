@@ -19,6 +19,8 @@ public class Main {
 		cfg.width = (int) Global.WIDTH;
 		cfg.height = (int) Global.HEIGHT;
 		cfg.vSyncEnabled = true;
+		
+		cfg.samples = 2;
 
 		new LwjglApplication(new BloodlinePenguinsMain(), cfg);
 	}

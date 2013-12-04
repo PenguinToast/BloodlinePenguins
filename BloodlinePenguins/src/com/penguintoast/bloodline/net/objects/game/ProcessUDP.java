@@ -1,15 +1,15 @@
 package com.penguintoast.bloodline.net.objects.game;
 
-import java.util.LinkedList;
+import java.util.ArrayDeque;
 
 public class ProcessUDP {
-	public LinkedList<Object> objects = new LinkedList<Object>();
+	public ArrayDeque<Object> objects = new ArrayDeque<Object>();
 	
 	public ProcessUDP() {
 		
 	}
 	
-	public ProcessUDP(LinkedList<Object> data) {
+	public ProcessUDP(ArrayDeque<Object> data) {
 		objects = data;
 	}
 }

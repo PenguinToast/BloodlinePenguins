@@ -1,15 +1,15 @@
 package com.penguintoast.bloodline.net.objects.game;
 
-import java.util.LinkedList;
+import java.util.ArrayDeque;
 
 public class ProcessTCP {
-	public LinkedList<Object> objects;
+	public ArrayDeque<Object> objects;
 	
 	public ProcessTCP() {
 		
 	}
 	
-	public ProcessTCP(LinkedList<Object> data) {
+	public ProcessTCP(ArrayDeque<Object> data) {
 		objects = data;
 	}
 }

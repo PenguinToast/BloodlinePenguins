@@ -77,7 +77,7 @@
 			background: btnUp,
 		},
 	},
-	com.penguintoast.bloodline.gui.skin.ButtonPadding: {
+	com.penguintoast.bloodline.ui.skin.ButtonPadding: {
 		default: {
 			top: -2, left: 4, bottom: 1, right: 4, space: 8
 		},

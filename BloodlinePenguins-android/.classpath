@@ -1,15 +1,16 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="src" path="gen"/>
-	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/BloodlinePenguins"/>
-	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
-	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
-	<classpathentry exported="true" kind="lib" path="/BloodlinePenguins/libs/gdx.jar" sourcepath="/BloodlinePenguins/libs/gdx-sources.jar"/>
-	<classpathentry exported="true" kind="lib" path="libs/gdx-backend-android.jar" sourcepath="libs/gdx-backend-android-sources.jar"/>
-	<classpathentry exported="true" kind="lib" path="/BloodlinePenguins/libs/bodyeditor-loader.jar" sourcepath="/BloodlinePenguins/libs/bodyeditor-loader-sources.jar"/>
-	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/kryonet"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/kryo2"/>
-	<classpathentry kind="output" path="bin/classes"/>
+    <classpathentry kind="src" path="src"/>
+    <classpathentry kind="src" path="gen"/>
+    <classpathentry combineaccessrules="false" exported="true" kind="src" path="/BloodlinePenguins"/>
+    <classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
+    <classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
+    <classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
+    <classpathentry combineaccessrules="false" kind="src" path="/kryonet"/>
+    <classpathentry combineaccessrules="false" kind="src" path="/kryo2"/>
+    <classpathentry kind="output" path="bin/classes"/>
+    <classpathentry exported="true" kind="lib" path="libs/gdx-backend-android.jar" sourcepath="libs/gdx-backend-android-sources.jar"/>
+    <classpathentry exported="true" kind="lib" path="/BloodlinePenguins/libs/bodyeditor-loader.jar" sourcepath="/BloodlinePenguins/libs/bodyeditor-loader-sources.jar"/>
+    <classpathentry exported="true" kind="lib" path="/BloodlinePenguins/libs/gdx.jar" sourcepath="/BloodlinePenguins/libs/gdx-sources.jar"/>
+    <classpathentry exported="true" kind="lib" path="/BloodlinePenguins/libs/tween-engine-api.jar" sourcepath="/BloodlinePenguins/libs/tween-engine-api-sources.jar"/>
 </classpath>

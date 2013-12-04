@@ -1,13 +1,13 @@
 package com.penguintoast.bloodline.net;
 
 import java.net.InetAddress;
-import java.util.LinkedList;
 import java.util.concurrent.Semaphore;
 
+import com.badlogic.gdx.Gdx;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Listener.ThreadedListener;
+import com.penguintoast.bloodline.Global;
 import com.penguintoast.bloodline.data.PlayerData;
-import com.penguintoast.bloodline.gui.screens.LobbyScreen;
 import com.penguintoast.bloodline.net.listener.ClientListener;
 import com.penguintoast.bloodline.net.objects.ChatMessage;
 import com.penguintoast.bloodline.net.objects.InfoRequest;
@@ -15,9 +15,12 @@ import com.penguintoast.bloodline.net.objects.InfoResponse;
 import com.penguintoast.bloodline.net.objects.JoinResponse;
 import com.penguintoast.bloodline.net.objects.game.ProcessTCP;
 import com.penguintoast.bloodline.net.objects.game.ProcessUDP;
+import com.penguintoast.bloodline.net.objects.lobby.GameStart;
 import com.penguintoast.bloodline.net.objects.lobby.PlayerJoined;
 import com.penguintoast.bloodline.net.objects.lobby.PlayerLeft;
 import com.penguintoast.bloodline.net.objects.lobby.PlayerReady;
+import com.penguintoast.bloodline.ui.screens.GameScreen;
+import com.penguintoast.bloodline.ui.screens.LobbyScreen;
 
 public class GameClient {
 	private LobbyScreen lobby;
@@ -84,15 +87,24 @@ public class GameClient {
 		return null;
 	}
 
-	@SuppressWarnings("unchecked")
-	public void received(Object o) {
+	public void received(final Object o) {
 		received = o;
 		lock.release();
 		if (o instanceof ProcessTCP) {
-			Network.processTCP = (LinkedList<Object>) o;
+			Gdx.app.postRunnable(new Runnable() {
+				@Override
+				public void run() {
+					Network.processTCP.push(((ProcessTCP) o).objects);
+				}
+			});
 		}
 		if (o instanceof ProcessUDP) {
-			Network.processUDP = (LinkedList<Object>) o;
+			Gdx.app.postRunnable(new Runnable() {
+				@Override
+				public void run() {
+					Network.processUDP = ((ProcessUDP) o).objects;
+				}
+			});
 		}
 		if (o instanceof PlayerJoined) {
 			PlayerData dat = ((PlayerJoined) o).player;
@@ -120,6 +132,14 @@ public class GameClient {
 			int id = ((PlayerReady) o).id;
 			Network.players.get(id).ready = true;
 			lobby.playerReady(id);
+		}
+		if (o instanceof GameStart) {
+			Gdx.app.postRunnable(new Runnable() {
+				@Override
+				public void run() {
+					Global.game.transition(new GameScreen());
+				}
+			});
 		}
 	}
 	

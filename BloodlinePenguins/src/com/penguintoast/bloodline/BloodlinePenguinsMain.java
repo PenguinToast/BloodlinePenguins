@@ -3,8 +3,8 @@ package com.penguintoast.bloodline;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
 import com.esotericsoftware.minlog.Log;
-import com.penguintoast.bloodline.gui.screens.LoadingScreen;
-import com.penguintoast.bloodline.gui.screens.TransitionScreen;
+import com.penguintoast.bloodline.ui.screens.LoadingScreen;
+import com.penguintoast.bloodline.ui.screens.TransitionScreen;
 
 public class BloodlinePenguinsMain extends Game {
 	
