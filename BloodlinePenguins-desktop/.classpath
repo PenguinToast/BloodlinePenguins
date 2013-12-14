@@ -1,14 +1,14 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-    <classpathentry kind="src" path="src"/>
-    <classpathentry kind="src" path="assets"/>
-    <classpathentry combineaccessrules="false" kind="src" path="/BloodlinePenguins"/>
-    <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-    <classpathentry combineaccessrules="false" kind="src" path="/kryonet"/>
-    <classpathentry combineaccessrules="false" kind="src" path="/kryo2"/>
-    <classpathentry kind="output" path="bin"/>
-    <classpathentry kind="lib" path="../../../libgdx/extensions/gdx-tools/gdx-tools.jar" sourcepath="../../../libgdx/extensions/gdx-tools/sources/gdx-tools-sources.jar"/>
-    <classpathentry kind="lib" path="libs/gdx-backend-lwjgl-natives.jar"/>
-    <classpathentry kind="lib" path="libs/gdx-backend-lwjgl.jar" sourcepath="libs/gdx-backend-lwjgl-sources.jar"/>
-    <classpathentry kind="lib" path="libs/gdx-natives.jar"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="assets"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/BloodlinePenguins"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/kryonet"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/kryo2"/>
+	<classpathentry kind="lib" path="../../../libgdx/extensions/gdx-tools/gdx-tools.jar" sourcepath="/libgdx/extensions/gdx-tools/sources/gdx-tools-sources.jar"/>
+	<classpathentry kind="lib" path="libs/gdx-backend-lwjgl-natives.jar"/>
+	<classpathentry kind="lib" path="libs/gdx-backend-lwjgl.jar" sourcepath="libs/gdx-backend-lwjgl-sources.jar"/>
+	<classpathentry kind="lib" path="libs/gdx-natives.jar"/>
+	<classpathentry kind="output" path="bin"/>
 </classpath>

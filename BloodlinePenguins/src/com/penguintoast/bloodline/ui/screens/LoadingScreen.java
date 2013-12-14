@@ -1,5 +1,8 @@
 package com.penguintoast.bloodline.ui.screens;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetDescriptor;
@@ -14,6 +17,8 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.penguintoast.bloodline.Global;
+import com.penguintoast.bloodline.actors.vfx.VisualEffect;
+import com.penguintoast.bloodline.loader.vfx.VisualEffectLoader;
 
 public class LoadingScreen implements Screen {
 	private SpriteBatch batch;
@@ -41,18 +46,36 @@ public class LoadingScreen implements Screen {
 		
 		// Load maps
 		assets.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
-		FileHandle mapFolder = Gdx.files.internal("maps");
-		for(FileHandle map : mapFolder.list("tmx")) {
-			assets.load(new AssetDescriptor<TiledMap>(map, TiledMap.class));
+		load(Gdx.files.internal("maps"), TiledMap.class, "tmx");
+		
+		// Load attrib
+		assets.setLoader(VisualEffect.class, new VisualEffectLoader());
+		load(Gdx.files.internal("data"), VisualEffect.class, "vfx");
+	}
+	
+	private <T> void load(FileHandle file, Class<T> type, String suffix) {
+		try {
+			BufferedReader br = file.child("filelist.txt").reader(4096);
+			String line = null;
+			while((line = br.readLine()) != null) {
+				if(line.isEmpty() || !line.endsWith(suffix)) {
+					continue;
+				}
+				assets.load(new AssetDescriptor<T>(file.child(line), type));
+			}
+		} catch(IOException ex) {
+			ex.printStackTrace();
 		}
 	}
 
 	@Override
 	public void render(float delta) {
+		if(assets.isLoaded("game.atlas")) {
+			setGlobal();
+		}
+		
 		if(assets.update()) {
-			Global.atlas = assets.get("game.atlas", TextureAtlas.class);
-			Global.skin = new Skin(Gdx.files.internal("data/skin.json"), Global.atlas);
-			Global.skin.addRegions(assets.get("preload.atlas", TextureAtlas.class));
+			setGlobal();
 			Global.game.transition(new MenuScreen());
 			dispose();
 		}
@@ -68,6 +91,12 @@ public class LoadingScreen implements Screen {
 		batch.enableBlending();
 		loading.draw(batch);
 		batch.end();
+	}
+	
+	private void setGlobal() {
+		Global.atlas = assets.get("game.atlas", TextureAtlas.class);
+		Global.skin = new Skin(Gdx.files.internal("skin.json"), Global.atlas);
+		Global.skin.addRegions(assets.get("preload.atlas", TextureAtlas.class));
 	}
 
 	@Override

@@ -24,6 +24,7 @@ import com.penguintoast.bloodline.ui.screens.LobbyScreen;
 
 public class GameClient {
 	private LobbyScreen lobby;
+	private GameScreen game;
 
 	private Client client;
 	private Semaphore lock;
@@ -32,7 +33,7 @@ public class GameClient {
 	public void setLobby(LobbyScreen screen) {
 		lobby = screen;
 	}
-
+	
 	public void start() {
 		try {
 			Network.actorCount = 0;
@@ -137,7 +138,8 @@ public class GameClient {
 			Gdx.app.postRunnable(new Runnable() {
 				@Override
 				public void run() {
-					Global.game.transition(new GameScreen());
+					game = new GameScreen();
+					Global.game.transition(game);
 				}
 			});
 		}
@@ -154,6 +156,9 @@ public class GameClient {
 	public void disconnected() {
 		if(lobby != null) {
 			lobby.showErrorDialog();
+		}
+		if(game != null) {
+			game.showErrorDialog();
 		}
 	}
 

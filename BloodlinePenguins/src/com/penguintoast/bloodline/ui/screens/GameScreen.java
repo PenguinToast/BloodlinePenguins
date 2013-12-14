@@ -8,7 +8,11 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.penguintoast.bloodline.Global;
 import com.penguintoast.bloodline.actors.GameActor;
 import com.penguintoast.bloodline.data.InputKey;
 import com.penguintoast.bloodline.data.SaveData;
@@ -88,6 +92,25 @@ public class GameScreen extends BaseScreen {
 
 		stage.act(delta);
 		stage.draw();
+	}
+
+	public void showErrorDialog() {
+		Dialog errorDialog = new Dialog("", Global.skin) {
+			@Override
+			protected void result(Object object) {
+				Global.game.transition(new JoinScreen());
+			}
+		};
+		errorDialog.setSkin(Global.skin);
+		errorDialog.getContentTable().add("Connection lost.");
+
+		Button but = new TextButton("Ok", Global.skin);
+		but.pad(0, 20, 3, 20);
+		errorDialog.button(but);
+		errorDialog.setMovable(true);
+		errorDialog.pad(10f);
+		errorDialog.show(stage);
+		
 	}
 
 	private void update() {

@@ -1,0 +1,2 @@
+bloodline/test_bloodline/idle.vfx
+bloodline/test_bloodline/fire.vfx

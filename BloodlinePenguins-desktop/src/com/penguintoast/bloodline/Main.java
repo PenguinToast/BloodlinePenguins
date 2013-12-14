@@ -15,7 +15,7 @@ public class Main {
 
 		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
 		cfg.title = "BloodlinePenguins";
-		cfg.useGL20 = true;
+		cfg.useGL20 = false;
 		cfg.width = (int) Global.WIDTH;
 		cfg.height = (int) Global.HEIGHT;
 		cfg.vSyncEnabled = true;

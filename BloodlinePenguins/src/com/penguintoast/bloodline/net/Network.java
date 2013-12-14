@@ -1,7 +1,6 @@
 package com.penguintoast.bloodline.net;
 
 import java.util.ArrayDeque;
-import java.util.LinkedList;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;

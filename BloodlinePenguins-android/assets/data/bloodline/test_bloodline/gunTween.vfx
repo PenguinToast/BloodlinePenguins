@@ -1,0 +1,10 @@
+type: Tween
+visual: data/bloodline/test_bloodline/gun.vfx
+tween: {
+	to: ROTATION, 0.5, 360;
+	end: ;
+	delay: -0.5;
+	to: ORIGIN_Y, 0.5, -20;
+	end: ;
+	repeatYoyo: -1, 0
+}

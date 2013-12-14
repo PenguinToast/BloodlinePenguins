@@ -33,7 +33,7 @@ public abstract class GameActor extends Actor {
 	
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
-		visual.render(batch, getX(), getY());
+		visual.render(batch, getX(), getY(), getOriginX(), getOriginY(), getScaleX(), getScaleY(), getRotation());
 	}
 	
 	public void actClient(float delta) {
