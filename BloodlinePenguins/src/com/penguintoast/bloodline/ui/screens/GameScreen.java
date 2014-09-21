@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.penguintoast.bloodline.Global;
@@ -29,6 +30,32 @@ public class GameScreen extends BaseScreen {
 		gameStage.setCamera(stage.getCamera());
 
 		table.setBackground((Drawable) null);
+		Label label = new Label("FPS: ", Global.skin, "textArea") {
+			@Override
+			public void act(float delta) {
+				super.act(delta);
+				setText("FPS: " + Gdx.graphics.getFramesPerSecond());
+			}
+		};
+		table.top().add(label).expandX().left();
+
+		if (!Network.host) {
+			label = new Label("Ping: ", Global.skin, "textArea") {
+				private float timer;
+				@Override
+				public void act(float delta) {
+					super.act(delta);
+					timer += delta;
+					if(timer >= 1.0f) {
+						Network.client.getClient().updateReturnTripTime();
+						timer = 0;
+					}
+					setText("Ping: " + Network.client.getClient().getReturnTripTime());
+				}
+			};
+			table.row();
+			table.add(label).expandX().left();
+		}
 
 		stage.addListener(new InputListener() {
 
@@ -40,7 +67,7 @@ public class GameScreen extends BaseScreen {
 				}
 				return false;
 			}
-			
+
 			@Override
 			public boolean keyUp(InputEvent event, int keycode) {
 				InputKey key = SaveData.getInput().getMapping(keycode);
@@ -49,7 +76,7 @@ public class GameScreen extends BaseScreen {
 				}
 				return false;
 			}
-			
+
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 				InputKey key = SaveData.getInput().getMapping(-2 - button);
@@ -58,7 +85,7 @@ public class GameScreen extends BaseScreen {
 				}
 				return false;
 			}
-			
+
 			@Override
 			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
 				InputKey key = SaveData.getInput().getMapping(-2 - button);
@@ -66,7 +93,7 @@ public class GameScreen extends BaseScreen {
 					Network.updatePlayerInput(key, false);
 				}
 			}
-			
+
 			@Override
 			public void touchDragged(InputEvent event, float x, float y, int pointer) {
 				Network.updatePlayerMouse(new Vector2(x, y));
@@ -110,7 +137,7 @@ public class GameScreen extends BaseScreen {
 		errorDialog.setMovable(true);
 		errorDialog.pad(10f);
 		errorDialog.show(stage);
-		
+
 	}
 
 	private void update() {
@@ -119,7 +146,7 @@ public class GameScreen extends BaseScreen {
 		}
 
 		Object o;
-		while((o = Network.processTCP.poll()) != null) {
+		while ((o = Network.processTCP.poll()) != null) {
 			process(o);
 		}
 		while ((o = Network.processUDP.poll()) != null) {
@@ -150,7 +177,7 @@ public class GameScreen extends BaseScreen {
 		}
 		if (o instanceof ArrayDeque) {
 			Object j;
-			while((j = ((ArrayDeque<Object>) o).poll()) != null) {
+			while ((j = ((ArrayDeque<Object>) o).poll()) != null) {
 				process(j);
 			}
 		}

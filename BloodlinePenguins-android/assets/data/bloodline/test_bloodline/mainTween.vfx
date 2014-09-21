@@ -1,0 +1,10 @@
+type: Tween
+visual: data/bloodline/test_bloodline/main.vfx
+tween: {
+	to: SCALE_XY, 0.5, 1.01, 1.01;
+	end: ;
+	delay: -0.5;
+	to: ALPHA, 0.5, -1;
+	end: ;
+	repeat: -1, 0.7
+}

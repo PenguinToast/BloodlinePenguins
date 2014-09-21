@@ -2,6 +2,7 @@ type: Combined
 visuals: {
 	data/bloodline/test_bloodline/color.vfx,
 	data/bloodline/test_bloodline/main.vfx,
+	data/bloodline/test_bloodline/mainTween.vfx,
 	data/bloodline/test_bloodline/gun.vfx,
 	data/bloodline/test_bloodline/fire.vfx
 }

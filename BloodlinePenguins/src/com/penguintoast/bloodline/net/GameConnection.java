@@ -7,7 +7,7 @@ public class GameConnection extends Connection {
 	private PlayerData data;
 
 	public GameConnection() {
-		
+		 
 	}
 	
 	public void setData(PlayerData data) {

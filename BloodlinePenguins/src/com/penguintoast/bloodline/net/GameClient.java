@@ -33,7 +33,7 @@ public class GameClient {
 	public void setLobby(LobbyScreen screen) {
 		lobby = screen;
 	}
-	
+
 	public void start() {
 		try {
 			Network.actorCount = 0;
@@ -50,7 +50,7 @@ public class GameClient {
 			ex.printStackTrace();
 		}
 	}
-	
+
 	public void shutdown() {
 		Network.players.clear();
 		Network.actors.clear();
@@ -90,7 +90,9 @@ public class GameClient {
 
 	public void received(final Object o) {
 		received = o;
-		lock.release();
+		if (lock.availablePermits() <= 0) {
+			lock.release();
+		}
 		if (o instanceof ProcessTCP) {
 			Gdx.app.postRunnable(new Runnable() {
 				@Override
@@ -119,9 +121,9 @@ public class GameClient {
 		}
 		if (o instanceof JoinResponse) {
 			JoinResponse dat = (JoinResponse) o;
-			if(dat.response == JoinResponse.ACCEPTED) {
+			if (dat.response == JoinResponse.ACCEPTED) {
 				PlayerData.getInstance().id = dat.pID;
-				for(PlayerData pl : dat.players) {
+				for (PlayerData pl : dat.players) {
 					Network.players.put(pl.id, pl);
 				}
 			}
@@ -144,20 +146,20 @@ public class GameClient {
 			});
 		}
 	}
-	
+
 	public void ready() {
 		client.sendTCP(new PlayerReady());
 	}
-	
+
 	public void chat(String message) {
 		client.sendTCP(new ChatMessage(message));
 	}
-	
+
 	public void disconnected() {
-		if(lobby != null) {
+		if (lobby != null) {
 			lobby.showErrorDialog();
 		}
-		if(game != null) {
+		if (game != null) {
 			game.showErrorDialog();
 		}
 	}

@@ -5,138 +5,21 @@ filter: Nearest,Nearest
 repeat: none
 particle
   rotate: false
-  xy: 2, 2
+  xy: 2, 24
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
-
-game2.png
-format: RGBA8888
-filter: Nearest,Nearest
-repeat: none
-test_bloodline
-  rotate: false
-  xy: 2, 24
-  size: 20, 30
-  orig: 20, 30
-  offset: 0, 0
-  index: -1
-test_bloodline_abil1
-  rotate: false
-  xy: 2, 24
-  size: 20, 30
-  orig: 20, 30
-  offset: 0, 0
-  index: 0
-test_bloodline_abil1
-  rotate: false
-  xy: 24, 24
-  size: 20, 30
-  orig: 20, 30
-  offset: 0, 0
-  index: 1
-test_bloodline_abil1
-  rotate: false
-  xy: 24, 24
-  size: 20, 30
-  orig: 20, 30
-  offset: 0, 0
-  index: 13
-test_bloodline_abil1
-  rotate: false
-  xy: 24, 24
-  size: 20, 30
-  orig: 20, 30
-  offset: 0, 0
-  index: 14
-test_bloodline_abil1
-  rotate: false
-  xy: 24, 24
-  size: 20, 30
-  orig: 20, 30
-  offset: 0, 0
-  index: 2
-test_bloodline_abil1
-  rotate: false
-  xy: 46, 24
-  size: 20, 30
-  orig: 20, 30
-  offset: 0, 0
-  index: 3
-test_bloodline_abil1
-  rotate: false
-  xy: 46, 24
-  size: 20, 30
-  orig: 20, 30
-  offset: 0, 0
-  index: 12
-test_bloodline_abil1
-  rotate: false
-  xy: 68, 24
-  size: 20, 30
-  orig: 20, 30
-  offset: 0, 0
-  index: 4
-test_bloodline_abil1
-  rotate: false
-  xy: 68, 24
-  size: 20, 30
-  orig: 20, 30
-  offset: 0, 0
-  index: 5
-test_bloodline_abil1
-  rotate: false
-  xy: 68, 24
-  size: 20, 30
-  orig: 20, 30
-  offset: 0, 0
-  index: 11
-test_bloodline_abil1
-  rotate: false
-  xy: 90, 24
-  size: 20, 30
-  orig: 20, 30
-  offset: 0, 0
-  index: 6
-test_bloodline_abil1
-  rotate: false
-  xy: 90, 24
-  size: 20, 30
-  orig: 20, 30
-  offset: 0, 0
-  index: 9
-test_bloodline_abil1
-  rotate: false
-  xy: 90, 24
-  size: 20, 30
-  orig: 20, 30
-  offset: 0, 0
-  index: 7
-test_bloodline_abil1
-  rotate: false
-  xy: 90, 24
-  size: 20, 30
-  orig: 20, 30
-  offset: 0, 0
-  index: 10
-test_bloodline_abil1
-  rotate: false
-  xy: 112, 24
-  size: 20, 30
-  orig: 20, 30
-  offset: 0, 0
-  index: 8
 test_bloodline_color
   rotate: false
-  xy: 134, 24
+  xy: 36, 26
   size: 20, 30
   orig: 20, 30
   offset: 0, 0
   index: -1
 test_bloodline_gun
   rotate: false
-  xy: 156, 34
+  xy: 58, 36
   size: 2, 20
   orig: 2, 20
   offset: 0, 0
@@ -149,7 +32,7 @@ test_bloodline_main
   offset: 0, 0
   index: -1
 
-game3.png
+game2.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none

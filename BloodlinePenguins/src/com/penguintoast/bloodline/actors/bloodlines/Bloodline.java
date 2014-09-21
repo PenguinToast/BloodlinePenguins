@@ -28,26 +28,26 @@ public class Bloodline extends GameActor {
 
 	@Override
 	public void actServer(float delta) {
-		float speed = 100;
-		float rotSpeed = 200;
+		float speed = 150;
 		if (Network.players.get(owner).input.get(InputKey.MOVEUP)) {
-			float dx = speed * delta * MathUtils.cosDeg(getRotation() + 90);
-			float dy = speed * delta * MathUtils.sinDeg(getRotation() + 90);
-			setX(getX() + dx);
+			float dy = speed * delta;
 			setY(getY() + dy);
 		}
 		if (Network.players.get(owner).input.get(InputKey.MOVEDOWN)) {
-			float dx = speed * delta * MathUtils.cosDeg(getRotation() + 90);
-			float dy = speed * delta * MathUtils.sinDeg(getRotation() + 90);
-			setX(getX() - dx);
+			float dy = speed * delta;
 			setY(getY() - dy);
 		}
 		if (Network.players.get(owner).input.get(InputKey.MOVERIGHT)) {
-			setRotation(getRotation() - rotSpeed * delta);
+			float dx = speed * delta;
+			setX(getX() + dx);
 		}
 		if (Network.players.get(owner).input.get(InputKey.MOVELEFT)) {
-			setRotation(getRotation() + rotSpeed * delta);
+			float dx = speed * delta;
+			setX(getX() - dx);
 		}
+		
+		Vector2 mouse = Network.players.get(owner).mouseLoc;
+		setRotation(MathUtils.radiansToDegrees * MathUtils.atan2(mouse.y - getY(), mouse.x - getX()) - 90);
 		Network.updateActorUDP(new BloodlineUpdate(this));
 	}
 

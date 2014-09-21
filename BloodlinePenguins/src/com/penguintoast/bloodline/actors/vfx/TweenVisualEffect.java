@@ -59,7 +59,7 @@ public class TweenVisualEffect extends VisualEffect {
 
 		float xx = nx + (x) - origin.x;
 		float yy = ny + (y) - origin.y;
-
+		
 		visual.render(batch, xx, yy, origin.x, origin.y, sx, sy, r);
 	}
 
@@ -109,9 +109,34 @@ public class TweenVisualEffect extends VisualEffect {
 		return out;
 	}
 
+	public Timeline copy(Timeline in, Object target) {
+		Timeline out = Timeline.createSequence();
+		for (@SuppressWarnings("rawtypes")
+		BaseTween bt : in.getChildren()) {
+			Tween t = (Tween) bt;
+			Tween tween = Tween.to(target, t.getType(), t.getDuration())
+					.targetRelative(t.getTargetValues())
+					.ease(t.getEasing())
+					.delay(t.getDelay());
+			if(t.isYoyo()) {
+				tween.repeatYoyo(t.getRepeatCount(), t.getRepeatDelay());
+			} else {
+				tween.repeat(t.getRepeatCount(), t.getRepeatDelay());
+			}
+			out.push(tween);
+		}
+		if(in.isYoyo()) {
+			out.repeatYoyo(in.getRepeatCount(), in.getRepeatDelay());
+		} else {
+			out.repeat(in.getRepeatCount(), in.getRepeatDelay());
+		}
+		return out;
+	}
+
 	@Override
 	public VisualEffect newInstance() {
-		VisualEffect out = new TweenVisualEffect(visual.newInstance(), copy(tween));
+		VisualEffect copy = visual.newInstance();
+		VisualEffect out = new TweenVisualEffect(copy, copy(tween, copy));
 		VisualEffect.copyBasic(this, out);
 		return out;
 	}
