@@ -1,5 +1,5 @@
 type: Tween
-visual: data/bloodline/test_bloodline/main.vfx
+visual: main.vfx
 tween: {
 	to: SCALE_XY, 0.5, 1.01, 1.01;
 	end: ;

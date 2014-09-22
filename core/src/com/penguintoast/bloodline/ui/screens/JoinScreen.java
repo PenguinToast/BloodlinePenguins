@@ -127,7 +127,7 @@ public class JoinScreen extends BaseScreen {
 				if (info != null && !servers.contains(info, false)) {
 					info.address = addr;
 					servers.add(info);
-					list.setItems(servers.toArray());
+					list.setItems(servers);
 				}
 			}
 		});

@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.penguintoast.bloodline.Global;
 import com.penguintoast.bloodline.actors.GameActor;
 import com.penguintoast.bloodline.data.InputKey;
@@ -26,8 +27,7 @@ public class GameScreen extends BaseScreen {
 	private Stage gameStage;
 
 	public GameScreen() {
-		gameStage = new Stage();
-		gameStage.getViewport().setCamera(stage.getCamera());
+		gameStage = new Stage(new FitViewport(Global.WIDTH, Global.HEIGHT, stage.getCamera()));
 
 		table.setBackground((Drawable) null);
 		Label label = new Label("FPS: ", Global.skin, "textArea") {
@@ -109,7 +109,7 @@ public class GameScreen extends BaseScreen {
 
 	@Override
 	public void render(float delta) {
-		Gdx.gl.glClearColor(1, 1, 1, 1);
+		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		update();

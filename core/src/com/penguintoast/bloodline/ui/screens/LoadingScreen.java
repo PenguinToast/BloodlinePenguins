@@ -46,7 +46,7 @@ public class LoadingScreen implements Screen {
 		
 		// Load maps
 		assets.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
-		load(Gdx.files.internal("assets/maps"), TiledMap.class, "tmx");
+        load(Gdx.files.internal("assets/maps"), TiledMap.class, "tmx");
 		
 		// Load attrib
 		assets.setLoader(VisualEffect.class, new VisualEffectLoader());
@@ -61,7 +61,6 @@ public class LoadingScreen implements Screen {
 				if(line.isEmpty() || !line.endsWith(suffix)) {
 					continue;
 				}
-				System.out.println(line);
 				assets.load(new AssetDescriptor<T>(file.child(line), type));
 			}
 		} catch(IOException ex) {

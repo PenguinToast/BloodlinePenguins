@@ -19,7 +19,7 @@ public class InfoResponse {
 	
 	@Override
 	public boolean equals(Object obj) {
-		return Arrays.equals(this.hwID, ((InfoResponse)obj).hwID);
+		return obj != null && Arrays.equals(this.hwID, ((InfoResponse)obj).hwID);
 	}
 	
 	@Override
