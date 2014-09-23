@@ -253,7 +253,7 @@ public class VisualEffectLoader extends SynchronousAssetLoader<VisualEffect, Vis
 		DataFile data = new DataFile(file);
 		String type = data.get("type");
 		if(type.equalsIgnoreCase("Animation") || type.equalsIgnoreCase("Static")) {
-			out.add(new AssetDescriptor<TextureAtlas>("assets/game.atlas", TextureAtlas.class));
+			out.add(new AssetDescriptor<TextureAtlas>("game.atlas", TextureAtlas.class));
 		} else if(type.equalsIgnoreCase("Combined")) {
 			String vString = data.get("visuals");
 			String[] parts = vString.split(",");
@@ -264,7 +264,7 @@ public class VisualEffectLoader extends SynchronousAssetLoader<VisualEffect, Vis
 			out.add(new AssetDescriptor<VisualEffect>(data.getFileName("visual"), VisualEffect.class));
 		} else if(type.equalsIgnoreCase("Particle")) {
 			ParticleEffectParameter param = new ParticleEffectParameter();
-			param.atlasFile = "assets/game.atlas";
+			param.atlasFile = "game.atlas";
 			out.add(new AssetDescriptor<ParticleEffect>(data.getFileName("path"), ParticleEffect.class, param));
 		} else {
 			Gdx.app.error("Error", "Unknown visual effect type in " + fileName + ": " + type);

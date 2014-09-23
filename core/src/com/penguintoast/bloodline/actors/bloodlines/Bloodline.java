@@ -14,7 +14,7 @@ import com.penguintoast.bloodline.net.objects.game.GameActorUpdate;
 public class Bloodline extends GameActor {
 	
 	public Bloodline() {
-		visual = Global.assets.get("assets/data/bloodline/test_bloodline/idle.vfx", VisualEffect.class).newInstance();
+		visual = Global.assets.get("data/bloodline/test_bloodline/idle.vfx", VisualEffect.class).newInstance();
 		setPosition(100, 100);
 		visual.start();
 	}
